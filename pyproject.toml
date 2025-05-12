@@ -1,0 +1,16 @@
+[project]
+name = "cfbdlt"
+version = "0.1.0"
+description = "CollegeFootballData.com API Pipeline"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dlt[cli,duckdb,parquet]>=1.7.0",
+    "enlighten>=1.12",
+    "pip>=24.3.1",
+    "pyarrow",
+    "db-dtypes",
+    "ipykernel",
+    "tqdm",
+    "ipywidgets"
+]
