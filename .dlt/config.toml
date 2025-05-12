@@ -1,0 +1,2 @@
+[extract] # global setting
+next_item_mode="fifo"

@@ -3,6 +3,14 @@ import pandas as pd
 from typing import Optional
 from settings import ADD_YEAR
 
+def cal_prep(record):
+    # Convert calendar_record to a DataFrame and keep only the required columns
+    df = pd.DataFrame(record)
+    filtered_df = df[['season', 'week', 'seasonType']]
+    # Rename 'season' column to 'year' to match the expected parameter name
+    filtered_df = filtered_df.rename(columns={'season': 'year'})
+    return filtered_df
+
 def get_data(url: str, headers: dict, range: pd.DataFrame, endpoint_name: str):
         for _, row in range.iterrows():
             row_params = {}
@@ -47,5 +55,13 @@ def get_data(url: str, headers: dict, range: pd.DataFrame, endpoint_name: str):
             if endpoint_name in ADD_YEAR:
                 # Add the year to the data
                 for item in data:
-                    item['year'] = row['year']
+                    item['year'] = int(row['year'])
             yield data
+
+def get_static(url: str, headers: dict):
+    response = requests.get(
+        url,
+        headers=headers
+    )
+    data = response.json()
+    yield data
