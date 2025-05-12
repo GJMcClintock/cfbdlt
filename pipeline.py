@@ -21,17 +21,19 @@ def cfbd_source(
     for endpoint in SEASON_ENDPOINTS:
         endpoint_name = endpoint[0]
         endpoint_path = endpoint[1]
+        merge_key_set = endpoint[2]
         url = f"{BASE_URL}/{endpoint_path}"
         yield dlt.resource(
             get_data,
             name=endpoint_name,
-            write_disposition='append',
-            parallelized=True
-        )(url, headers=headers, range=YEARS)
+            write_disposition='merge',
+            merge_key=merge_key_set,
+            parallelized=False
+        )(url, headers=headers, range=YEARS,endpoint_name=endpoint_name)
 
 
 pipeline = dlt.pipeline(
-    pipeline_name='cfbd',
+    pipeline_name='cfbd_pipeline',
     destination='motherduck',
     dataset_name='cfbd',
     progress='enlighten'
