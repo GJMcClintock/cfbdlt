@@ -17,7 +17,8 @@ def cfbd_source(
         'Authorization': f'Bearer {cfbd_api_key}'
     }
     for endpoint in SEASON_ENDPOINTS:
-        endpoint_name, endpoint_path, endpoint_parent, endpoint_parent_key= endpoint
+        endpoint_name = endpoint[0]
+        endpoint_path = endpoint[1]
         url = f"{BASE_URL}/{endpoint_path}"
         yield dlt.resource(
             get_data,
