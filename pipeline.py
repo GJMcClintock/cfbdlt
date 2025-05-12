@@ -31,7 +31,6 @@ pipeline = dlt.pipeline(
     pipeline_name='cfbd',
     destination='motherduck',
     dataset_name='cfbd',
-    pipeline_name='cfbd_pipeline',
     progress='enlighten'
 )
 
