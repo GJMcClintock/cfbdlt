@@ -8,6 +8,7 @@ def cal_prep(record):
     if record is None:
         return None
     df = pd.DataFrame(record)
+    
     if not df.empty:
         filtered_df = df[['season', 'week', 'seasonType']]
         # Rename 'season' column to 'year' to match the expected parameter name

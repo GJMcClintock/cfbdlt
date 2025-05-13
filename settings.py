@@ -1,4 +1,4 @@
-START_YEAR = 2000
+START_YEAR = 1869
 END_YEAR = 2024
 BASE_URL = 'https://apinext.collegefootballdata.com'
 
@@ -6,7 +6,6 @@ ADD_YEAR = ['teams','rosters']
 
 # (table name, endpoint, merge key, start year)
 SEASON_ENDPOINTS = [
-    ('season_calendar','calendar',('start_date'),2002),
     ('games','games',('id'),1869),
     ('game_media','games/media',('id'),2003),
     ('game_weather','games/weather',('id'),2001),
@@ -33,7 +32,8 @@ SEASON_ENDPOINTS = [
     ('adj_team_season_stats','wepa/team/season',('year','team_id'),2008),
     ('adj_player_passing','wepa/players/passing',('year','athlete_id'),2013),
     ('adj_player_rushing','wepa/players/rushing',('year','athlete_id'),2013),
-    ('adj_player_kicking','wepa/players/kicking',('year','athlete_id'),2016)
+    ('adj_player_kicking','wepa/players/kicking',('year','athlete_id'),2016),
+    ('season_calendar','calendar',('start_date'),2002)
 ]
 
 STATIC_ENDPOINTS = [

@@ -21,6 +21,7 @@ def cfbd_source(
         endpoint_name = endpoint[0]
         endpoint_path = endpoint[1]
         merge_key_set = endpoint[2]
+        start_year = endpoint[3]
         url = f"{BASE_URL}/{endpoint_path}"
         yield dlt.resource(
             get_data,
@@ -28,7 +29,7 @@ def cfbd_source(
             write_disposition='merge',
             merge_key=merge_key_set,
             parallelized=False
-        )(url, headers=headers, range=YEARS,endpoint_name=endpoint_name)
+        )(url, headers=headers, range=YEARS,endpoint_name=endpoint_name, start_year=start_year)
 
     for endpoint in STATIC_ENDPOINTS:
         endpoint_name = endpoint[0]
@@ -54,7 +55,7 @@ def plays(calendar_record,
 
     url = f"{BASE_URL}/plays"
     if range is not None:
-        range = range[range['season'] >= 2001]
+        range = range[range['year'] >= 2001]
         # Skip processing if no rows remain after filtering
         if len(range) == 0:
             return
@@ -78,7 +79,7 @@ def team_box_score(calendar_record,
     }
     url = f"{BASE_URL}/games/teams"
     if range is not None:
-        range = range[range['season'] >= 2004]
+        range = range[range['year'] >= 2004]
         # Skip processing if no rows remain after filtering
         if len(range) == 0:
             return
@@ -102,7 +103,7 @@ def player_box_score(calendar_record,
     }
     url = f"{BASE_URL}/games/players"
     if range is not None:
-        range = range[range['season'] >= 2004]
+        range = range[range['year'] >= 2004]
         # Skip processing if no rows remain after filtering
         if len(range) == 0:
             return
@@ -126,7 +127,7 @@ def play_stats(calendar_record,
     }
     url = f"{BASE_URL}/plays/stats"
     if range is not None:
-        range = range[range['season'] >= 2013]
+        range = range[range['year'] >= 2013]
         # Skip processing if no rows remain after filtering
         if len(range) == 0:
             return
@@ -150,7 +151,7 @@ def lines(calendar_record,
     }
     url = f"{BASE_URL}/lines"
     if range is not None:
-        range = range[range['season'] >= 2013]
+        range = range[range['year'] >= 2013]
         # Skip processing if no rows remain after filtering
         if len(range) == 0:
             return
