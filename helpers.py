@@ -5,11 +5,14 @@ from settings import ADD_YEAR
 
 def cal_prep(record):
     # Convert calendar_record to a DataFrame and keep only the required columns
+    if record is None:
+        return None
     df = pd.DataFrame(record)
-    filtered_df = df[['season', 'week', 'seasonType']]
-    # Rename 'season' column to 'year' to match the expected parameter name
-    filtered_df = filtered_df.rename(columns={'season': 'year'})
-    return filtered_df
+    if not df.empty:
+        filtered_df = df[['season', 'week', 'seasonType']]
+        # Rename 'season' column to 'year' to match the expected parameter name
+        filtered_df = filtered_df.rename(columns={'season': 'year'})
+        return filtered_df
 
 def get_data(url: str, headers: dict, range: pd.DataFrame, endpoint_name: str):
         for _, row in range.iterrows():

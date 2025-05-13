@@ -66,17 +66,19 @@ def plays(calendar_record,
 )
 def plays(calendar_record,
           cfbd_api_key: str = dlt.secrets.value):
-    
+    range = cal_prep(calendar_record)
     headers = {
         'authorization': f'Bearer {cfbd_api_key}'
     }
+
     url = f"{BASE_URL}/plays"
-    yield get_data(
-        url,
-        headers=headers,
-        range=cal_prep(calendar_record),
-        endpoint_name='plays'
-    )
+    if range is not None:
+        yield get_data(
+            url,
+            headers=headers,
+            range=range,
+            endpoint_name='plays'
+        )
 
 @dlt.transformer(
     name='team_box_score',
@@ -85,17 +87,18 @@ def plays(calendar_record,
 )
 def team_box_score(calendar_record,
           cfbd_api_key: str = dlt.secrets.value):
-    
+    range = cal_prep(calendar_record)
     headers = {
         'authorization': f'Bearer {cfbd_api_key}'
     }
     url = f"{BASE_URL}/games/teams"
-    yield get_data(
-        url,
-        headers=headers,
-        range=cal_prep(calendar_record),
-        endpoint_name='team_box_score'
-    )
+    if range is not None:
+        yield get_data(
+            url,
+            headers=headers,
+            range=range,
+            endpoint_name='team_box_score'
+        )
 
 @dlt.transformer(
     name='player_box_score',
@@ -104,17 +107,18 @@ def team_box_score(calendar_record,
 )
 def player_box_score(calendar_record,
           cfbd_api_key: str = dlt.secrets.value):
-    
+    range = cal_prep(calendar_record)
     headers = {
         'authorization': f'Bearer {cfbd_api_key}'
     }
     url = f"{BASE_URL}/games/players"
-    yield get_data(
-        url,
-        headers=headers,
-        range=cal_prep(calendar_record),
-        endpoint_name='player_box_score'
-    )
+    if range is not None:
+        yield get_data(
+            url,
+            headers=headers,
+            range=range,
+            endpoint_name='player_box_score'
+        )
 
 @dlt.transformer(
     name='play_stats',
@@ -123,17 +127,18 @@ def player_box_score(calendar_record,
 )
 def play_stats(calendar_record,
           cfbd_api_key: str = dlt.secrets.value):
-    
+    range = cal_prep(calendar_record)
     headers = {
         'authorization': f'Bearer {cfbd_api_key}'
     }
     url = f"{BASE_URL}/plays/stats"
-    yield get_data(
-        url,
-        headers=headers,
-        range=cal_prep(calendar_record),
-        endpoint_name='play_stats'
-    )
+    if range is not None:
+        yield get_data(
+            url,
+            headers=headers,
+            range=range,
+            endpoint_name='play_stats'
+        )
 
 @dlt.transformer(
     name='lines',
@@ -142,17 +147,18 @@ def play_stats(calendar_record,
 )
 def lines(calendar_record,
           cfbd_api_key: str = dlt.secrets.value):
-    
+    range = cal_prep(calendar_record)
     headers = {
         'authorization': f'Bearer {cfbd_api_key}'
     }
     url = f"{BASE_URL}/lines"
-    yield get_data(
-        url,
-        headers=headers,
-        range=cal_prep(calendar_record),
-        endpoint_name='lines'
-    )
+    if range is not None:
+        yield get_data(
+            url,
+            headers=headers,
+            range=range,
+            endpoint_name='lines'
+        )
 
 
 

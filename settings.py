@@ -1,4 +1,4 @@
-START_YEAR = 1869
+START_YEAR = 2000
 END_YEAR = 2024
 BASE_URL = 'https://apinext.collegefootballdata.com'
 
