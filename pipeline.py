@@ -191,7 +191,7 @@ def game_advanced_stats(calendar_record,
     }
     url = f"{BASE_URL}/stats/game/advanced"
     if range is not None:
-        range = range[range['year'] >= 2002]
+        range = range[range['year'] >= 2004]
         # Skip processing if no rows remain after filtering
         if len(range) == 0:
             return
@@ -254,14 +254,14 @@ def game_win_probability(game_record,
 # source.<parent_resource> | <transformer_name>
 source =  cfbd_source()
 source.resources.add(
-    # source.season_calendar | plays,
-    # source.season_calendar | team_box_score,
-    # source.season_calendar | player_box_score,
-    # source.season_calendar | play_stats,
-    # source.season_calendar | lines,
-    source.season_calendar | game_advanced_stats
-    # source.games | game_win_probability,
-    # source.games | game_advanced_box
+    source.season_calendar | plays,
+    source.season_calendar | team_box_score,
+    source.season_calendar | player_box_score,
+    source.season_calendar | play_stats,
+    source.season_calendar | lines,
+    source.season_calendar | game_advanced_stats,
+    source.games | game_win_probability,
+    source.games | game_advanced_box
 )
 
 # Creating a pipeline instance and run it with the source.

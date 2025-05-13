@@ -1,8 +1,2 @@
 [extract]
 workers = 3
-
-[normalize] 
-workers = 10
-
-[load]
-workers = 10

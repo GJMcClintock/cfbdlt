@@ -12,8 +12,9 @@ def cal_prep(record):
     
     if not df.empty:
         # Filter records where startDate is less than the current date
-        current_date = datetime.now().strftime('%Y-%m-%d')
-        df = df[pd.to_datetime(df['startDate']) < pd.to_datetime(current_date)]
+        current_date = pd.Timestamp.now()
+        df = df[pd.to_datetime(df['startDate'], utc=True).dt.tz_localize(None) < current_date]
+        
         filtered_df = df[['season', 'week', 'seasonType']]
         # Rename 'season' column to 'year' to match the expected parameter name
         filtered_df = filtered_df.rename(columns={'season': 'year'})
@@ -95,8 +96,6 @@ def get_data(
                     # Add the year to the data
                     for item in data:
                         item['year'] = int(row['year'])
-                if endpoint_name == 'game_advanced_stats':
-                    data['game_id'] = int(row['id'])
                 yield data
             except:
                 continue
