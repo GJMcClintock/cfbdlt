@@ -40,25 +40,6 @@ def cfbd_source(
             write_disposition='replace'
         )(url, headers=headers)
 
-@dlt.transformer
-def plays(calendar_record,
-          cfbd_api_key: str = dlt.secrets.value):
-    # Convert calendar_record to a DataFrame and keep only the required columns
-    df = pd.DataFrame(calendar_record)
-    filtered_df = df[['season', 'week', 'seasonType']]
-    # Rename 'season' column to 'year' to match the expected parameter name
-    filtered_df = filtered_df.rename(columns={'season': 'year'})
-    headers = {
-        'authorization': f'Bearer {cfbd_api_key}'
-    }
-    url = f"{BASE_URL}/plays"
-    yield get_data(
-        url,
-        headers=headers,
-        range=filtered_df,
-        endpoint_name='plays'
-    )
-
 @dlt.transformer(
     name='plays',
     write_disposition='merge',
@@ -73,6 +54,10 @@ def plays(calendar_record,
 
     url = f"{BASE_URL}/plays"
     if range is not None:
+        range = range[range['season'] >= 2001]
+        # Skip processing if no rows remain after filtering
+        if len(range) == 0:
+            return
         yield get_data(
             url,
             headers=headers,
@@ -93,6 +78,10 @@ def team_box_score(calendar_record,
     }
     url = f"{BASE_URL}/games/teams"
     if range is not None:
+        range = range[range['season'] >= 2004]
+        # Skip processing if no rows remain after filtering
+        if len(range) == 0:
+            return
         yield get_data(
             url,
             headers=headers,
@@ -113,6 +102,10 @@ def player_box_score(calendar_record,
     }
     url = f"{BASE_URL}/games/players"
     if range is not None:
+        range = range[range['season'] >= 2004]
+        # Skip processing if no rows remain after filtering
+        if len(range) == 0:
+            return
         yield get_data(
             url,
             headers=headers,
@@ -133,6 +126,10 @@ def play_stats(calendar_record,
     }
     url = f"{BASE_URL}/plays/stats"
     if range is not None:
+        range = range[range['season'] >= 2013]
+        # Skip processing if no rows remain after filtering
+        if len(range) == 0:
+            return
         yield get_data(
             url,
             headers=headers,
@@ -153,6 +150,10 @@ def lines(calendar_record,
     }
     url = f"{BASE_URL}/lines"
     if range is not None:
+        range = range[range['season'] >= 2013]
+        # Skip processing if no rows remain after filtering
+        if len(range) == 0:
+            return
         yield get_data(
             url,
             headers=headers,

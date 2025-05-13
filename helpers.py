@@ -14,7 +14,19 @@ def cal_prep(record):
         filtered_df = filtered_df.rename(columns={'season': 'year'})
         return filtered_df
 
-def get_data(url: str, headers: dict, range: pd.DataFrame, endpoint_name: str):
+def get_data(
+    url: str, 
+    headers: dict, 
+    range: pd.DataFrame, 
+    endpoint_name: str,
+    start_year: Optional[int] = None
+    ):
+        if start_year is not None:
+            # Filter the range DataFrame to include only rows with 'year' >= start_year
+            range = range[range['year'] >= start_year]
+            # Skip processing if no rows remain after filtering
+            if len(range) == 0:
+                return
         for _, row in range.iterrows():
             row_params = {}
             # Add each column from the row to the params dict
