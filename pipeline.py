@@ -162,7 +162,7 @@ def lines(calendar_record,
             endpoint_name='lines'
         )
 
-
+  
 
 source =  cfbd_source()
 source.resources.add(source.season_calendar | plays,
